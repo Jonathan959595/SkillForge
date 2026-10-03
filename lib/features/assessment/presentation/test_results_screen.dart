@@ -17,7 +17,7 @@ class TestResultsView extends StatelessWidget {
   Widget build(BuildContext context) {
     if (result.compileError != null) {
       return Card(
-        color: Colors.purple.withOpacity(0.1),
+        color: Colors.purple.withValues(alpha: 0.1),
         child: ListTile(
           leading: const Icon(Icons.error, color: Colors.purple),
           title: const Text('Compilation Error'),
@@ -49,7 +49,7 @@ class TestResultsView extends StatelessWidget {
                     '${r.message != null ? '\n${r.message}' : ''}'),
             trailing: Chip(
               label: Text(r.status.label, style: const TextStyle(fontSize: 11)),
-              backgroundColor: _color(r.status).withOpacity(0.15),
+              backgroundColor: _color(r.status).withValues(alpha: 0.15),
             ),
           ),
         ),
