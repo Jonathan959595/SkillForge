@@ -26,6 +26,7 @@ class TestCaseResult {
   final ExecStatus status;
   final bool isEdge;
   final int timeMs;
+  final int? memoryUsedKb;
   final String? actualOutput;
   final String? expectedOutput;
   final String? message;
@@ -34,6 +35,7 @@ class TestCaseResult {
     required this.status,
     this.isEdge = false,
     this.timeMs = 0,
+    this.memoryUsedKb,
     this.actualOutput,
     this.expectedOutput,
     this.message,
@@ -61,11 +63,19 @@ class ExecutionRequest {
 class ExecutionResult {
   final List<TestCaseResult> results;
   final String? compileError;
-  const ExecutionResult({required this.results, this.compileError});
+  final int? executionTimeMs;
+  final int? memoryUsedKb;
+  const ExecutionResult({
+    required this.results,
+    this.compileError,
+    this.executionTimeMs,
+    this.memoryUsedKb,
+  });
 
   int get passedCount => results.where((r) => r.passed).length;
   int get total => results.length;
   double get passRatio => total == 0 ? 0 : passedCount / total;
-  int get totalTimeMs => results.fold(0, (s, r) => s + r.timeMs);
+  int get totalTimeMs =>
+      executionTimeMs ?? results.fold(0, (s, r) => s + r.timeMs);
   bool get allPassed => total > 0 && passedCount == total;
 }

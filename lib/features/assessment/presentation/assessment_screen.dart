@@ -96,6 +96,13 @@ class AssessmentScreen extends StatelessWidget {
                     Text('Run result: ${_verdict(controller.sampleResult!)}',
                         style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(height: 8),
+                    if (controller.sampleResult!.compileError != null)
+                        Container(
+                           padding: const EdgeInsets.all(12),
+                           color: Colors.red.withValues(alpha: 0.1),
+                           child: Text(controller.sampleResult!.compileError!,
+                           style: const TextStyle(fontFamily: 'monospace')),
+                        ),
                     TestResultsView(result: controller.sampleResult!),
                   ],
                 ],
@@ -119,6 +126,8 @@ class AssessmentScreen extends StatelessWidget {
           Text(_verdict(r), style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 4),
           Text('${r.passedCount}/${r.total} tests passed • ${r.totalTimeMs} ms'),
+          if (r.memoryUsedKb != null)
+            Text('Peak memory: ${r.memoryUsedKb} KB'),
           Text('Time taken: ${attempt.timeTakenSec}s '
               '(expected ${attempt.question.expectedTimeSec}s)'),
           if (r.compileError != null) ...[

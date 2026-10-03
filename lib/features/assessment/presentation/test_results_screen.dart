@@ -30,7 +30,10 @@ class TestResultsView extends StatelessWidget {
       ListTile(
         title: Text('${result.passedCount} / ${result.total} tests passed',
             style: Theme.of(context).textTheme.titleLarge),
-        subtitle: Text('Total execution time: ${result.totalTimeMs} ms'),
+        subtitle: Text(
+          'Total execution time: ${result.totalTimeMs} ms'
+          '${result.memoryUsedKb == null ? '' : ' • Peak memory: ${result.memoryUsedKb} KB'}',
+        ),
         trailing: Icon(
           result.allPassed ? Icons.check_circle : Icons.cancel,
           color: result.allPassed ? Colors.green : Colors.red,

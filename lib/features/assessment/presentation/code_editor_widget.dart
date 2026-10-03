@@ -22,7 +22,10 @@ class CodeEditorWidget extends StatefulWidget {
   State<CodeEditorWidget> createState() => _CodeEditorWidgetState();
 }
 
-class _CodeEditorWidgetState extends State<CodeEditorWidget> {
+class _CodeEditorWidgetState extends State<CodeEditorWidget>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   late final List<String> _languages;
   late String _language;
   late final TextEditingController _code;
@@ -54,6 +57,7 @@ class _CodeEditorWidgetState extends State<CodeEditorWidget> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final busy = widget.isRunning || widget.isSubmitting;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
